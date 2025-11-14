@@ -1,0 +1,28 @@
+﻿@model TodoApplicationMVC.Models.Todo
+
+@{
+    ViewBag.Title = "Update Todo";
+}
+
+<main class="flex flex-col items-center justify-center gap-10 py-10">
+    <h3 class="text-4xl font-bold text-gray-800">Update Todo</h3>
+    <div class="times-center flex w-[40%] flex-col justify-center gap-4">
+        <div class="w-full rounded-lg border border-gray-200 bg-white p-6">
+            <form action="/Home/updateTodo/@Model.Id" method="post" class="flex w-full flex-col items-center justify-center gap-6">
+
+                <input type="text" id="Title" name="title" value="@Model.Title" class="w-full rounded-md border border-gray-300 p-3 shadow-sm transition-colors focus:border-blue-500 focus:outline-none" placeholder="Enter todo title" />
+
+                <textarea id="Description" name="desc" class="w-full rounded-md border border-gray-300 p-3 shadow-sm transition-colors focus:border-blue-500 focus:outline-none" rows="5" placeholder="Enter todo description">@Model.Description</textarea>
+
+                <div class="mt-4 flex justify-end gap-4">
+                    <a href="/Home/Index" class="rounded-lg bg-gray-300 px-5 py-2 font-medium text-gray-800 no-underline shadow-md transition-colors hover:bg-gray-400">
+                        Cancel
+                    </a>
+                    <button type="submit" class="rounded-lg bg-blue-500 px-5 py-2 font-medium text-white shadow-md transition-colors hover:bg-blue-600">
+                        + Add Todo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

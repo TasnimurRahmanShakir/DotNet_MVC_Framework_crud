@@ -1,0 +1,44 @@
+# ----------------------------------------------------------------
+# Visual Studio & .NET (Core)
+# ----------------------------------------------------------------
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio 2022 cache folder
+.vs/
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# NuGet packages (for .NET Framework)
+packages/
+
+# ----------------------------------------------------------------
+# Node.js / NPM (For Tailwind)
+# ----------------------------------------------------------------
+# All node dependency packages
+node_modules/
+
+# Logs
+npm-debug.log*
+
+# ----------------------------------------------------------------
+# Generated Tailwind CSS (Your specific file)
+# ----------------------------------------------------------------
+# Ignore the generated output CSS file.
+# We only want to track the source (input.css / index.css).
+/TodoApplicationMVC/Content/tailwind.css
+
+# ----------------------------------------------------------------
+# OS & System Files (General)
+# ----------------------------------------------------------------
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store

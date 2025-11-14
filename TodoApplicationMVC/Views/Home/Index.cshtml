@@ -1,0 +1,52 @@
+﻿@model List<TodoApplicationMVC.Models.Todo>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<main class="flex flex-col items-center justify-center gap-10 py-10">
+    <h3 class="text-4xl font-bold text-gray-800">My Todo List</h3>
+
+    <div class="flex w-[70%] max-w-4xl flex-col gap-4">
+
+        <div class="w-full text-right">
+            <a href="/Home/addTodo"
+               class="inline-block rounded-lg bg-blue-500 px-5 py-2 font-medium text-white no-underline shadow-md transition-colors hover:bg-blue-600">
+                + Add New Todo
+            </a>
+        </div>
+
+        @foreach (var todo in Model)
+        {
+            <div class="flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white p-4">
+
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900">@todo.Title</h3>
+                    <p class="text-gray-600">@todo.Description</p>
+                </div>
+
+                <div class="flex gap-2">
+
+                    <a href="/Home/updateTodo/@todo.Id"
+                       class="rounded-md bg-yellow-400 px-4 py-1 font-medium text-black no-underline shadow-sm transition-colors hover:bg-yellow-500">
+                        Edit
+                    </a>
+
+                    <a href="/Home/delete/@todo.Id"
+                       class="rounded-md bg-red-500 px-4 py-1 font-medium text-white no-underline shadow-sm transition-colors hover:bg-red-600"
+                       style="text-decoration: none;">
+                        Delete
+                    </a>
+
+                </div>
+            </div>
+        }
+
+        @if (!Model.Any())
+        {
+            <div class="w-full rounded-lg bg-white p-10 text-center shadow-md">
+                <p class="text-gray-500">You don't have any todos yet. Get started by adding one!</p>
+            </div>
+        }
+
+    </div>
+</main>
