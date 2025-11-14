@@ -65,8 +65,47 @@ This project was built to demonstrate a classic C# CRUD (Create, Read, Update, D
     * **Build the solution (F6 or Build > Build Solution).** This will trigger the custom build step in the `.csproj` file, which runs `npm run build:css` and generates your `tailwind.css` file.
     * **Run the project (F5).**
 
-## ⚙️ How the Tailwind Build Works
+## ⚙️ Full Tailwind CSS Setup Details
 
-This project uses `npm` to manage Tailwind:
-* `npm run build:css`: Runs a one-time build of the CSS, minifies it, and saves it to `/TodoApplicationMVC/Content/tailwind.css`. This is tied to the Visual Studio build process.
-* `npm run watch:css`: Runs the Tailwind CLI in "watch" mode. This is great for development, as it will automatically rebuild your CSS every time you save a `.cshtml` file. You can run this in a separate terminal or use the **Task Runner Explorer** in Visual Studio.
+This project is fully integrated with the Tailwind CSS v4 CLI, automated to run on build. Here’s a breakdown of the setup:
+
+### 1. NPM Initialization
+* A `package.json` file is located in the solution root, created using `npm init -y`.
+* The Tailwind CLI was installed as a dev dependency:
+    ```bash
+    npm install -D @tailwindcss/cli
+    ```
+
+### 2. Configuration Files
+* **`tailwind.config.js`**: Located in the solution root. Its `content` property is crucial and configured to scan all `.cshtml` files for classes:
+    ```javascript
+    module.exports = {
+      content: [
+        './TodoApplicationMVC/Views/**/*.cshtml', // Scans for classes here
+      ],
+      theme: {
+        extend: {},
+      },
+      plugins: [],
+    }
+    ```
+* **`Styles/index.css`** (or `input.css`): The source CSS file (in the `Styles` folder) that contains the main Tailwind directive:
+    ```css
+    @import "tailwindcss";
+    ```
+
+### 3. Build Scripts (in `package.json`)
+Two scripts are configured in `package.json` to run the Tailwind CLI:
+* **`"build:css"`**: `tailwindcss -i ./Styles/index.css -o ./TodoApplicationMVC/Content/tailwind.css --minify`
+    * This is the main build script. It takes the source CSS, scans the `.cshtml` files, and generates a minified `tailwind.css` output file in the project's `Content` folder.
+* **`"watch:css"`**: `tailwindcss -i ./Styles/index.css -o ./TodoApplicationMVC/Content/tailwind.css --watch`
+    * This is a development script. It watches for changes in your `.cshtml` or `index.css` files and instantly rebuilds the CSS, enabling a live-reload workflow.
+
+### 4. Automatic Build Integration (in `.csproj`)
+To automate the build, the `TodoApplicationMVC.csproj` file was modified. A custom `<Target>` was added to run the `npm run build:css` script *before* the main Visual Studio build starts.
+
+This is the code added to the `.csproj` file (right before the closing `</Project>` tag):
+```xml
+  <Target Name="Tailwind" BeforeTargets="Build">
+    <Exec WorkingDirectory=".." Command="npm run build:css" />
+  </Target>
