@@ -3,16 +3,29 @@
     ViewBag.Title = "Home Page";
 }
 
+
+
 <main class="flex flex-col items-center justify-center gap-10 py-10">
     <h3 class="text-4xl font-bold text-gray-800">My Todo List</h3>
 
     <div class="flex w-[70%] max-w-4xl flex-col gap-4">
 
-        <div class="w-full text-right">
+        <div class="flex w-full items-center justify-between">
             <a href="/Home/addTodo"
                class="inline-block rounded-lg bg-blue-500 px-5 py-2 font-medium text-white no-underline shadow-md transition-colors hover:bg-blue-600">
                 + Add New Todo
             </a>
+            <form method="get" action="@Url.Action("Index", "Home")">
+                <input type="text"
+                       name="name"
+                       placeholder="Search todos..."
+                       class="rounded-lg border border-white/50 px-3 py-2 outline-none" />
+
+                <button type="submit"
+                        class="inline-block rounded-lg bg-blue-500 px-5 py-2 font-medium text-white no-underline shadow-md transition-colors hover:bg-blue-600">
+                    Search
+                </button>
+            </form>
         </div>
 
         @foreach (var todo in Model)
